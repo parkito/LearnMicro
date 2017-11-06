@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * artem.karnov@t-systems.com
  */
 @Repository
-public interface ParcelRepository extends JpaRepository<Parcel, Long>{
+public interface ParcelRepository extends JpaRepository<Parcel, Long> {
 
     Parcel findByNumber(long number);
 }

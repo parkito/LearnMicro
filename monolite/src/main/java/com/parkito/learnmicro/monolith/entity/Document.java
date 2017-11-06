@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 
-
-
 /**
  * @author Artem Karnov @date 11/6/2017.
  * artem.karnov@t-systems.com

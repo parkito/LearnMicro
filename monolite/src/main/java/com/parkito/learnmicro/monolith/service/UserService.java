@@ -1,8 +1,10 @@
 package com.parkito.learnmicro.monolith.service;
 
+import com.parkito.learnmicro.monolith.dto.UserDTO;
 import com.parkito.learnmicro.monolith.entity.User;
 import com.parkito.learnmicro.monolith.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.PersistenceException;
 
@@ -10,9 +12,23 @@ import javax.persistence.PersistenceException;
  * @author Artem Karnov @date 11/6/2017.
  * artem.karnov@t-systems.com
  */
+@Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    public User convert(UserDTO userDTO) {
+        User user = userRepository.findByEmail(userDTO.getEmail());
+        if (user == null) {
+            return User.builder()
+                    .email(userDTO.getEmail())
+                    .firstName(userDTO.getFirstName())
+                    .lastName(userDTO.getLastName())
+                    .build();
+        } else {
+            return user;
+        }
+    }
 
     public boolean createUser(String email, String firstName, String secondName) {
         User user = User.builder()
@@ -36,7 +52,7 @@ public class UserService {
         try {
             userRepository.deleteByEmail(email);
             return true;
-        }catch (PersistenceException ex){
+        } catch (PersistenceException ex) {
             return false;
         }
     }
