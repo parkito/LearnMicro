@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <!--&lt;!&ndash; Entities &ndash;&gt;-->
+    <!--<include file="entities/lg_name.xml" relativeToChangelogFile="true"/>-->
+    <!--<include file="entities/lg_name_message.xml" relativeToChangelogFile="true"/>-->
+
+    <!--<include file="entities/lg_event_code.xml" relativeToChangelogFile="true"/>-->
+    <!--<include file="entities/lg_event_code_message.xml" relativeToChangelogFile="true"/>-->
+
+    <!--<include file="entities/lg_diagnostic_code.xml" relativeToChangelogFile="true"/>-->
+    <!--<include file="entities/lg_diagnostic_code_message.xml" relativeToChangelogFile="true"/>-->
+
+    <!--<include file="entities/lg_driver.xml" relativeToChangelogFile="true"/>-->
+    <!--<include file="entities/lg_malfunction_event.xml" relativeToChangelogFile="true"/>-->
+
+    <!--&lt;!&ndash; Default values &ndash;&gt;-->
+    <!--<include file="default/default_values.xml" relativeToChangelogFile="true"/>-->
+
+    <!--&lt;!&ndash; Changes &ndash;&gt;-->
+    <!--<include file="changes/changelog_5.50.xml" relativeToChangelogFile="true"/>-->
+
+</databaseChangeLog>

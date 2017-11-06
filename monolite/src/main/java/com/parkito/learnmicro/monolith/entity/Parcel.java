@@ -47,7 +47,8 @@ public class Parcel implements Serializable {
     public enum Status {
         DELIVERED("1"),
         IN_PROCESS("2"),
-        UNKNOWN("3");
+        READY("3"),
+        UNKNOWN("4");
 
         private String code;
 
