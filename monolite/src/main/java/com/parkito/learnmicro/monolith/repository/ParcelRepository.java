@@ -16,6 +16,6 @@ public interface ParcelRepository extends JpaRepository<Parcel, Long> {
 
     Parcel findByNumber(long number);
 
-    @Query("select p from Parcel p where u.userFrom = :email or u.userTo = :email")
+    @Query("select p from Parcel p where p.from = :email or p.to = :email")
     List<Parcel> findAllParcelsForUser(String email);
 }

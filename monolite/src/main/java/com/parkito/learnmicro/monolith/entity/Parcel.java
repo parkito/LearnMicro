@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,10 @@ import java.io.Serializable;
 @Builder
 @Data
 public class Parcel implements Serializable {
+    @Tolerate
+    public Parcel() {
+    }
+
     @Id
     @GeneratedValue
     private long parcelId;

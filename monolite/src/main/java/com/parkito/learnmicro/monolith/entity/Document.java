@@ -2,6 +2,7 @@ package com.parkito.learnmicro.monolith.entity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,10 @@ import java.io.Serializable;
 @Builder
 @Data
 public class Document implements Serializable {
+    @Tolerate
+    public Document() {
+    }
+
     @Id
     @GeneratedValue
     private long documentId;
