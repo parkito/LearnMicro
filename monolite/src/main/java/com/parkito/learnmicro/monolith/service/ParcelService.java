@@ -104,6 +104,4 @@ public class ParcelService {
                 .userTo(parcel.getTo().getEmail())
                 .build();
     }
-
-
 }

@@ -28,19 +28,10 @@ import java.util.List;
  */
 @Component
 public class BackendClient {
-
     private final RestTemplate restTemplate;
-
     private final String apiUrl;
     private final String findAllParcelsForUserPath;
     private final String findAllUserDocumentsPath;
-
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ParcelService parcelService;
-    @Autowired
-    private DocumentService documentService;
 
     @Autowired
     public BackendClient(RestTemplate restTemplate,
@@ -81,30 +72,5 @@ public class BackendClient {
                 });
 
         return result.getBody();
-    }
-
-    @RequestMapping(path = "/create-user", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> createUser(@RequestParam String email,
-                                              @RequestParam String firstName,
-                                              @RequestParam String secondName) {
-        return new ResponseEntity<>(userService.createUser(email, firstName, secondName), HttpStatus.OK);
-    }
-
-    @RequestMapping(path = "/find-parcel-by-number", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ParcelDTO> findParcelByNumber(@RequestParam long number) {
-        return new ResponseEntity<>(parcelService.findParcelByNumber(number), HttpStatus.OK);
-    }
-
-    @RequestMapping(path = "/find-all-parcels-for-user", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ParcelDTO>> findAllParcelsForUser(@RequestParam String email) {
-        return new ResponseEntity<List<ParcelDTO>>(parcelService.getAllParcelsForUser(email), HttpStatus.OK);
-    }
-
-    @RequestMapping(path = "/create-document", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DocumentDTO> createDocument(@RequestParam String serial,
-                                                      @RequestParam String number,
-                                                      @RequestParam String email) {
-        DocumentDTO document = documentService.createDocument(serial, number, email);
-        return document == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(document, HttpStatus.OK);
     }
 }
