@@ -32,7 +32,6 @@ public class BackendClient {
     private final RestTemplate restTemplate;
 
     private final String apiUrl;
-    private final String findParcelByNumberPath;
     private final String findAllParcelsForUserPath;
     private final String findAllUserDocumentsPath;
 
@@ -51,7 +50,6 @@ public class BackendClient {
                          @Value("$rest.post-service.findAllUserDocumentsPath") String findAllUserDocuments) {
         this.restTemplate = restTemplate;
         this.apiUrl = apiUrl;
-        this.findParcelByNumberPath = findParcelByNumberPath;
         this.findAllParcelsForUserPath = findAllParcelsForUser;
         this.findAllUserDocumentsPath = findAllUserDocuments;
     }
@@ -100,5 +98,13 @@ public class BackendClient {
     @RequestMapping(path = "/find-all-parcels-for-user", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ParcelDTO>> findAllParcelsForUser(@RequestParam String email) {
         return new ResponseEntity<List<ParcelDTO>>(parcelService.getAllParcelsForUser(email), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/create-document", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DocumentDTO> createDocument(@RequestParam String serial,
+                                                      @RequestParam String number,
+                                                      @RequestParam String email) {
+        DocumentDTO document = documentService.createDocument(serial, number, email);
+        return document == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(document, HttpStatus.OK);
     }
 }

@@ -19,14 +19,29 @@ public class DocumentService {
         this.userService = userService;
     }
 
-    public Document convert(DocumentDTO documentDTO) {
-        User user = userService.findUserByEmail(documentDTO.getEmail());
+    public DocumentDTO convert(Document document) {
+        User user = userService.findUserByEmail(document.getUser().getEmail());
         if (user == null)
             return null;
-        return Document.builder()
-                .number(documentDTO.getNumber())
-                .serial(documentDTO.getSerial())
-                .user(user)
+        return DocumentDTO.builder()
+                .number(document.getNumber())
+                .serial(document.getSerial())
+                .email(user.getEmail())
                 .build();
+    }
+
+    public DocumentDTO createDocument(String serial, String number, String email) {
+        User user = userService.findUserByEmail(email);
+        if (user == null) {
+            return null;
+        } else {
+            return convert(
+                    Document.builder()
+                            .serial(serial)
+                            .number(number)
+                            .user(user)
+                            .build()
+            );
+        }
     }
 }
