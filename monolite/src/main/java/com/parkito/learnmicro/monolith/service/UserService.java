@@ -6,8 +6,6 @@ import com.parkito.learnmicro.monolith.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.PersistenceException;
-
 /**
  * @author Artem Karnov @date 11/6/2017.
  * artem.karnov@t-systems.com
@@ -19,27 +17,28 @@ public class UserService {
 
     public User convert(UserDTO userDTO) {
         User user = userRepository.findByEmail(userDTO.getEmail());
-        if (user == null) {
+        if (user != null) {
             return User.builder()
                     .email(userDTO.getEmail())
                     .firstName(userDTO.getFirstName())
                     .lastName(userDTO.getLastName())
                     .build();
         } else {
-            return user;
+            return null;
         }
     }
 
     public boolean createUser(String email, String firstName, String secondName) {
-        User user = User.builder()
-                .email(email)
-                .firstName(firstName)
-                .lastName(secondName)
-                .build();
-        try {
+        User existedUser = userRepository.findByEmail(email);
+        if (existedUser == null) {
+            User user = User.builder()
+                    .email(email)
+                    .firstName(firstName)
+                    .lastName(secondName)
+                    .build();
             userRepository.save(user);
             return true;
-        } catch (PersistenceException ex) {
+        } else {
             return false;
         }
     }
@@ -49,10 +48,11 @@ public class UserService {
     }
 
     public boolean deleteUserByEmail(String email) {
-        try {
-            userRepository.deleteByEmail(email);
+        User userForDelete = userRepository.findByEmail(email);
+        if (userForDelete != null) {
+            userRepository.delete(userForDelete);
             return true;
-        } catch (PersistenceException ex) {
+        } else {
             return false;
         }
     }
