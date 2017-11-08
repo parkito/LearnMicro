@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="akarnov (generated)" id="1510152399620-4">
+        <createTable tableName="USER">
+            <column name="USER_ID" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMAIL" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIRST_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="akarnov (generated)" id="1510152399620-5">
+        <addPrimaryKey columnNames="USER_ID" constraintName="CONSTRAINT_2" tableName="USER"/>
+    </changeSet>
+
+    <changeSet author="akarnov (generated)" id="1510152399620-8">
+        <addUniqueConstraint columnNames="EMAIL" constraintName="UK_OB8KQYQQGMEFL0ACO34AKDTPE" tableName="USER"/>
+    </changeSet>
+</databaseChangeLog>
