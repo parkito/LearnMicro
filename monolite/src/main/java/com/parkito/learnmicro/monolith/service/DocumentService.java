@@ -23,7 +23,45 @@ public class DocumentService {
         this.documentRepository = documentRepository;
     }
 
-    public DocumentDTO convert(Document document) {
+    public DocumentDTO createDocument(String serial, String number, String email) {
+        Document document = documentRepository.findBySerialAndNumber(serial, number);
+        User user = userRepository.findByEmail(email);
+        if (document != null || user == null) {
+            return null;
+        } else {
+            Document documentForPersisting = Document.builder()
+                    .serial(serial)
+                    .number(number)
+                    .user(user)
+                    .build();
+            documentForPersisting = documentRepository.save(documentForPersisting);
+            return convert(documentForPersisting);
+        }
+    }
+
+    public DocumentDTO findDocument(String serial, String number) {
+        Document document = documentRepository.findBySerialAndNumber(serial, number);
+        if (document == null) {
+            return null;
+        } else {
+            return DocumentDTO.builder()
+                    .serial(document.getSerial())
+                    .number(document.getNumber())
+                    .email(document.getUser().getEmail())
+                    .build();
+        }
+    }
+
+    public boolean deleteDocument(String serial, String number) {
+        Document document = documentRepository.findBySerialAndNumber(serial, number);
+        if (document != null) {
+            documentRepository.delete(document);
+            return true;
+        }
+        return false;
+    }
+
+    private DocumentDTO convert(Document document) {
         User user = userRepository.findByEmail(document.getUser().getEmail());
         if (user != null) {
             return DocumentDTO.builder()
@@ -34,28 +72,5 @@ public class DocumentService {
         } else {
             return null;
         }
-    }
-
-    public DocumentDTO createDocument(String serial, String number, String email) {
-        User user = userRepository.findByEmail(email);
-        if (user != null) {
-            return convert(
-                    Document.builder()
-                            .serial(serial)
-                            .number(number)
-                            .user(user)
-                            .build()
-            );
-        } else {
-            return null;
-        }
-    }
-
-    public boolean deleteDocument(String serial, String number) {
-        Document document = documentRepository.findBySerialAndNumber(serial, number);
-        if (document != null) {
-            documentRepository.delete(document);
-        }
-        return true;
     }
 }

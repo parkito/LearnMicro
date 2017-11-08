@@ -2,28 +2,26 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="akarnov (generated)" id="1510081111228-1">
-        <createSequence sequenceName="HIBERNATE_SEQUENCE"/>
+
+    <changeSet author="akarnov (generated)" id="1510151906305-6">
+        <addPrimaryKey columnNames="SEQUENCE_NAME" constraintName="CONSTRAINT_5" tableName="HIBERNATE_SEQUENCES"/>
     </changeSet>
 
-    <changeSet author="akarnov (generated)" id="1510081111228-13">
-        <addForeignKeyConstraint baseColumnNames="TO_USER_ID" baseTableName="PARCEL"
-                                 constraintName="FKBINTMUSGHCLXEQWT1ENR19S6I" deferrable="false"
-                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="USER_ID" referencedTableName="USER"/>
+    <changeSet author="akarnov (generated)" id="1510150987061-9">
+        <createIndex indexName="FKBINTMUSGHCLXEQWT1ENR19S6I_INDEX_8" tableName="PARCEL">
+            <column name="TO_USER_ID"/>
+        </createIndex>
     </changeSet>
 
-    <changeSet author="akarnov (generated)" id="1510081111228-14">
-        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="DOCUMENT"
-                                 constraintName="FKJHDXDV9SIJHUJIYNQBB5JC010" deferrable="false"
-                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="USER_ID" referencedTableName="USER"/>
+    <changeSet author="akarnov (generated)" id="1510150987061-10">
+        <createIndex indexName="FKJHDXDV9SIJHUJIYNQBB5JC010_INDEX_6" tableName="DOCUMENT">
+            <column name="USER_ID"/>
+        </createIndex>
     </changeSet>
 
-    <changeSet author="akarnov (generated)" id="1510081111228-15">
-        <addForeignKeyConstraint baseColumnNames="FROM_USER_ID" baseTableName="PARCEL"
-                                 constraintName="FKKXNVFW71I8Q0GUK3PJY2I9G56" deferrable="false"
-                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="USER_ID" referencedTableName="USER"/>
+    <changeSet author="akarnov (generated)" id="1510150987061-11">
+        <createIndex indexName="FKKXNVFW71I8Q0GUK3PJY2I9G56_INDEX_8" tableName="PARCEL">
+            <column name="FROM_USER_ID"/>
+        </createIndex>
     </changeSet>
 </databaseChangeLog>

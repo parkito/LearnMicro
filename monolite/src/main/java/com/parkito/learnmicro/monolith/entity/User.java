@@ -7,6 +7,7 @@ import lombok.experimental.Tolerate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
@@ -20,13 +21,12 @@ import java.util.List;
 @Builder
 @Data
 public class User implements Serializable {
-
     @Tolerate
     public User() {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long userId;
 
     @Column(nullable = false, unique = true)
@@ -39,5 +39,5 @@ public class User implements Serializable {
     private String lastName;
 
     @OneToMany(mappedBy = "user")
-    private List<Document> document;
+    private List<Document> documents;
 }

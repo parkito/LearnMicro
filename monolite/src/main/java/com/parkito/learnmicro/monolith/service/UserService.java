@@ -1,10 +1,13 @@
 package com.parkito.learnmicro.monolith.service;
 
 import com.parkito.learnmicro.monolith.dto.UserDTO;
+import com.parkito.learnmicro.monolith.entity.Document;
 import com.parkito.learnmicro.monolith.entity.User;
 import com.parkito.learnmicro.monolith.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 /**
  * @author Artem Karnov @date 11/6/2017.
@@ -12,20 +15,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public User convert(UserDTO userDTO) {
-        User user = userRepository.findByEmail(userDTO.getEmail());
-        if (user != null) {
-            return User.builder()
-                    .email(userDTO.getEmail())
-                    .firstName(userDTO.getFirstName())
-                    .lastName(userDTO.getLastName())
-                    .build();
-        } else {
-            return null;
-        }
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public boolean createUser(String email, String firstName, String secondName) {
@@ -43,8 +37,13 @@ public class UserService {
         }
     }
 
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public UserDTO findUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            return null;
+        } else {
+            return convert(user);
+        }
     }
 
     public boolean deleteUserByEmail(String email) {
@@ -54,6 +53,35 @@ public class UserService {
             return true;
         } else {
             return false;
+        }
+    }
+
+    private UserDTO convert(User user) {
+        if (user == null) {
+            return null;
+        } else {
+            return UserDTO.builder()
+                    .email(user.getEmail())
+                    .firstName(user.getFirstName())
+                    .firstName(user.getLastName())
+                    .serials(user.getDocuments().stream()
+                            .map(Document::getSerial)
+                            .collect(Collectors.toList())
+                    )
+                    .build();
+        }
+    }
+
+    private User parse(UserDTO userDTO) {
+        User user = userRepository.findByEmail(userDTO.getEmail());
+        if (user == null) {
+            return null;
+        } else {
+            return User.builder()
+                    .email(userDTO.getEmail())
+                    .firstName(userDTO.getFirstName())
+                    .lastName(userDTO.getLastName())
+                    .build();
         }
     }
 }

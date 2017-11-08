@@ -2,6 +2,8 @@ package com.parkito.learnmicro.monolith.controller;
 
 import com.parkito.learnmicro.monolith.dto.DocumentDTO;
 import com.parkito.learnmicro.monolith.dto.ParcelDTO;
+import com.parkito.learnmicro.monolith.dto.UserDTO;
+import com.parkito.learnmicro.monolith.entity.Parcel;
 import com.parkito.learnmicro.monolith.service.DocumentService;
 import com.parkito.learnmicro.monolith.service.ParcelService;
 import com.parkito.learnmicro.monolith.service.UserService;
@@ -38,9 +40,9 @@ public class BackendRestServer {
     private final HttpHeaders headers = new HttpHeaders();
 
     @RequestMapping(path = "/create-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<org.springframework.http.HttpEntity<?>> createUser(@RequestParam String email,
-                                                                             @RequestParam String firstName,
-                                                                             @RequestParam String secondName) {
+    public ResponseEntity createUser(@RequestParam String email,
+                                     @RequestParam String firstName,
+                                     @RequestParam String secondName) {
         boolean isUserCreated = userService.createUser(email, firstName, secondName);
         headers.clear();
         if (isUserCreated) {
@@ -52,8 +54,21 @@ public class BackendRestServer {
                 new ResponseEntity<>(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(path = "/find-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> findUser(@RequestParam String email) {
+        UserDTO user = userService.findUserByEmail(email);
+        headers.clear();
+        if (user == null) {
+            headers.add("Status", "User wasn't found");
+        } else {
+            headers.add("Status", "User found");
+        }
+        return user == null ? new ResponseEntity(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST) :
+                new ResponseEntity<>(user, headers, HttpStatus.OK);
+    }
+
     @RequestMapping(path = "/delete-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<org.springframework.http.HttpEntity<?>> deleteUser(@RequestParam String email) {
+    public ResponseEntity deleteUser(@RequestParam String email) {
         boolean isUserDeleted = userService.deleteUserByEmail(email);
         headers.clear();
         if (isUserDeleted) {
@@ -66,10 +81,20 @@ public class BackendRestServer {
     }
 
     @RequestMapping(path = "/create-parcel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<org.springframework.http.HttpEntity<?>> createParcel(@RequestParam String email) {
-        boolean isUserDeleted = userService.deleteUserByEmail(email);
-        return isUserDeleted ? new ResponseEntity<>(ResponseEntity.EMPTY, headers, HttpStatus.OK) :
-                new ResponseEntity<>(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ParcelDTO> createParcel(@RequestParam long number,
+                                                  @RequestParam double price,
+                                                  @RequestParam double weight,
+                                                  @RequestParam String emailFrom,
+                                                  @RequestParam String emailTo) {
+        ParcelDTO parcel = parcelService.createParcel(number, price, weight, emailFrom, emailTo, Parcel.Status.IN_PROCESS.getCode());
+        headers.clear();
+        if (parcel != null) {
+            headers.add("Status", "Parcel created");
+        } else {
+            headers.add("Status", "Parcel wasn't created");
+        }
+        return parcel == null ? new ResponseEntity(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST) :
+                new ResponseEntity<>(parcel, headers, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/find-parcel-by-number", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -112,4 +137,49 @@ public class BackendRestServer {
         return document == null ? new ResponseEntity(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST) :
                 new ResponseEntity<>(document, headers, HttpStatus.OK);
     }
+
+    @RequestMapping(path = "/find-document", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DocumentDTO> findDocument(@RequestParam String serial,
+                                                    @RequestParam String number) {
+        DocumentDTO document = documentService.findDocument(serial, number);
+        headers.clear();
+        if (document == null) {
+            headers.add("Status", "Document wasn't found");
+        } else {
+            headers.add("Status", "Document found");
+        }
+        return document == null ? new ResponseEntity(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST) :
+                new ResponseEntity<>(document, headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/delete-document", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteDocument(@RequestParam String serial,
+                                         @RequestParam String number) {
+        boolean isDocumentDeleted = documentService.deleteDocument(serial, number);
+        headers.clear();
+        if (isDocumentDeleted) {
+            headers.add("Status", "Document deleted");
+        } else {
+            headers.add("Status", "Document wasn't deleted");
+        }
+        return isDocumentDeleted ? new ResponseEntity<>(ResponseEntity.EMPTY, headers, HttpStatus.OK) :
+                new ResponseEntity<>(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(path = "/get-parcel-for-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ParcelDTO> getParcelForUser(@RequestParam long parcelNumber,
+                                                      @RequestParam String email,
+                                                      @RequestParam String docSerial,
+                                                      @RequestParam String docNumber) {
+        ParcelDTO parcel = parcelService.getParcelForUser(parcelNumber, email, docSerial, docNumber);
+        headers.clear();
+        if (parcel == null) {
+            headers.add("Status", "Can't get parcel for user");
+        } else {
+            headers.add("Status", "Parcel for user was delivered");
+        }
+        return parcel == null ? new ResponseEntity(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST) :
+                new ResponseEntity<ParcelDTO>(parcel, headers, HttpStatus.OK);
+    }
+
 }

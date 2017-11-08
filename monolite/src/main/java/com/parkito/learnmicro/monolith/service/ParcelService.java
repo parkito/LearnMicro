@@ -43,7 +43,8 @@ public class ParcelService {
     }
 
     public List<ParcelDTO> getAllParcelsForUser(String email) {
-        return parcelRepository.findAllParcelsForUser(email).stream()
+        return parcelRepository.findAllParcelsForUser(email)
+                .stream()
                 .map(this::convert)
                 .collect(Collectors.toList());
     }
@@ -53,7 +54,7 @@ public class ParcelService {
         User userTo = userRepository.findByEmail(emailTo);
         Parcel parcel = parcelRepository.findByNumber(number);
 
-        if (userFrom != null && userTo != null && parcel != null) {
+        if (userFrom != null && userTo != null && parcel == null) {
             Parcel parcelForPersisting = Parcel.builder()
                     .number(number)
                     .weight(weight)
@@ -73,7 +74,7 @@ public class ParcelService {
         Document userDocument = documentRepository.findBySerialAndNumber(docSerial, docNumber);
         Parcel parcel = parcelRepository.findByNumber(parcelNumber);
 
-        if (user != null && userDocument != null && parcel != null) {
+        if (user != null && userDocument != null && parcel != null &&parcel.getTo().equals(user)) {
             if (parcel.getStatus() != Parcel.Status.DELIVERED) {
                 parcel.setStatus(Parcel.Status.DELIVERED);
                 Parcel savedParcel = parcelRepository.save(parcel);

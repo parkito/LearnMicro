@@ -9,6 +9,7 @@ import lombok.experimental.Tolerate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
@@ -26,7 +27,7 @@ public class Parcel implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long parcelId;
 
     @Column(nullable = false, unique = true)
