@@ -11,5 +11,8 @@
     <include file="entities/constraints" relativeToChangelogFile="true"/>
     <!--Sequences-->
     <include file="entities/sequence.xml" relativeToChangelogFile="true"/>
-
+    <!--Data-->
+    <include file="data/user.xml" relativeToChangelogFile="true"/>
+    <include file="data/document.xml" relativeToChangelogFile="true"/>
+    <include file="data/parcel.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
