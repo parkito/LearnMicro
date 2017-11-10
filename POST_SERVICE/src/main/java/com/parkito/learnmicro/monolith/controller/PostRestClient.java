@@ -2,6 +2,7 @@ package com.parkito.learnmicro.monolith.controller;
 
 import com.parkito.learnmicro.monolith.dto.DocumentDTO;
 import com.parkito.learnmicro.monolith.dto.ParcelDTO;
+import com.parkito.learnmicro.monolith.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -20,18 +21,18 @@ import java.util.List;
  * artem.karnov@t-systems.com
  */
 @Component
-public class BackendRestClient {
+public class PostRestClient {
     private final RestTemplate restTemplate;
     private final String apiUrl;
     private final String findAllParcelsForUserPath;
     private final String findAllUserDocumentsPath;
 
     @Autowired
-    public BackendRestClient(RestTemplate restTemplate,
-                             @Value("${rest.post-service.api.path}") String apiUrl,
-                             @Value("${rest.post-service.findByNumberPath}") String findParcelByNumberPath,
-                             @Value("$rest.post-service.findAllParcelsForUserPath") String findAllParcelsForUser,
-                             @Value("$rest.post-service.findAllUserDocumentsPath") String findAllUserDocuments) {
+    public PostRestClient(RestTemplate restTemplate,
+                          @Value("${rest.post-service.api.path}") String apiUrl,
+                          @Value("${rest.post-service.findByNumberPath}") String findParcelByNumberPath,
+                          @Value("$rest.post-service.findAllParcelsForUserPath") String findAllParcelsForUser,
+                          @Value("$rest.post-service.findAllUserDocumentsPath") String findAllUserDocuments) {
         this.restTemplate = restTemplate;
         this.apiUrl = apiUrl;
         this.findAllParcelsForUserPath = findAllParcelsForUser;
@@ -39,7 +40,7 @@ public class BackendRestClient {
     }
 
 
-    public List<ParcelDTO> getAllUserParcels(String email) {
+    public UserDTO findUserByEmail(String email) {
         URI targetUrl = UriComponentsBuilder
                 .fromUriString(apiUrl)
                 .pathSegment(findAllParcelsForUserPath)
@@ -53,7 +54,7 @@ public class BackendRestClient {
         return result.getBody();
     }
 
-    public List<DocumentDTO> getAllClientDocuments(String email) {
+    public DocumentDTO findDocumentBySerialAndNumber(String serial, String number) {
         URI targetUrl = UriComponentsBuilder
                 .fromUriString(apiUrl)
                 .pathSegment(findAllUserDocumentsPath)

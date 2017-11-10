@@ -25,13 +25,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1")
-public class BackendRestServer {
+public class BackendRestController {
     private final UserService userService;
     private final ParcelService parcelService;
     private final DocumentService documentService;
 
     @Autowired
-    public BackendRestServer(UserService userService, ParcelService parcelService, DocumentService documentService) {
+    public BackendRestController(UserService userService, ParcelService parcelService, DocumentService documentService) {
         this.userService = userService;
         this.parcelService = parcelService;
         this.documentService = documentService;
@@ -152,6 +152,20 @@ public class BackendRestServer {
                 new ResponseEntity<>(document, headers, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/get-documents-for-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<DocumentDTO>> findDocument(@RequestParam String email) {
+        List<DocumentDTO> documents = documentService.findAllDocumentsForUser(email);
+        headers.clear();
+        if (documents == null) {
+            headers.add("Status", "Documents wasn't found");
+        } else {
+            headers.add("Status", "Documents found");
+        }
+        return documents == null ? new ResponseEntity(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST) :
+                new ResponseEntity<>(documents, headers, HttpStatus.OK);
+    }
+
+
     @RequestMapping(path = "/delete-document", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteDocument(@RequestParam String serial,
                                          @RequestParam String number) {
@@ -179,7 +193,7 @@ public class BackendRestServer {
             headers.add("Status", "Parcel for user was delivered");
         }
         return parcel == null ? new ResponseEntity(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST) :
-                new ResponseEntity<ParcelDTO>(parcel, headers, HttpStatus.OK);
+                new ResponseEntity<>(parcel, headers, HttpStatus.OK);
     }
 
 }

@@ -3,10 +3,15 @@ package com.parkito.learnmicro.monolith.service;
 import com.parkito.learnmicro.monolith.dto.UserDTO;
 import com.parkito.learnmicro.monolith.entity.Document;
 import com.parkito.learnmicro.monolith.entity.User;
+import com.parkito.learnmicro.monolith.repository.DocumentRepository;
 import com.parkito.learnmicro.monolith.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 /**
@@ -15,11 +20,15 @@ import java.util.stream.Collectors;
  */
 @Service
 public class UserService {
+    private static final String COMMA_SEPARATOR = ",";
+
     private final UserRepository userRepository;
+    private final DocumentRepository documentRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, DocumentRepository documentRepository) {
         this.userRepository = userRepository;
+        this.documentRepository = documentRepository;
     }
 
     public boolean createUser(String email, String firstName, String secondName) {
@@ -65,7 +74,7 @@ public class UserService {
                     .firstName(user.getFirstName())
                     .firstName(user.getLastName())
                     .serials(user.getDocuments().stream()
-                            .map(Document::getSerial)
+                            .map(d -> d.getSerial() + COMMA_SEPARATOR + d.getNumber())
                             .collect(Collectors.toList())
                     )
                     .build();
@@ -81,6 +90,20 @@ public class UserService {
                     .email(userDTO.getEmail())
                     .firstName(userDTO.getFirstName())
                     .lastName(userDTO.getLastName())
+                    .documents(userDTO.getSerials().stream()
+                            .map(s -> {
+                                        List<String> serialAndNumber = Collections.list(new StringTokenizer(s, ",")).stream()
+                                                .map(token -> (String) token).collect(Collectors.toList());
+                                        Document document = documentRepository.findBySerialAndNumber(serialAndNumber.get(0), serialAndNumber.get(1));
+                                        if (document != null) {
+                                            return document;
+                                        } else {
+                                            return null;
+                                        }
+                                    }
+                            ).filter(Objects::nonNull)
+                            .collect(Collectors.toList())
+                    )
                     .build();
         }
     }

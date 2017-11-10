@@ -8,12 +8,16 @@ import com.parkito.learnmicro.monolith.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @author Artem Karnov @date 11/6/2017.
  * artem.karnov@t-systems.com
  */
 @Service
 public class DocumentService {
+    public static final String SERIAL_NUMBER_DELIMETER = ",";
     private final UserRepository userRepository;
     private final DocumentRepository documentRepository;
 
@@ -59,6 +63,22 @@ public class DocumentService {
             return true;
         }
         return false;
+    }
+
+    public List<DocumentDTO> findAllDocumentsForUser(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            return null;
+        } else {
+            return user.getDocuments().stream()
+                    .map(i ->
+                            DocumentDTO.builder()
+                                    .serial(i.getSerial())
+                                    .number(i.getNumber())
+                                    .build()
+                    )
+                    .collect(Collectors.toList());
+        }
     }
 
     private DocumentDTO convert(Document document) {

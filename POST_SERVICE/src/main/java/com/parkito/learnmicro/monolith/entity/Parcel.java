@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.io.Serializable;
 
 /**
@@ -42,11 +41,11 @@ public class Parcel implements Serializable {
     @Column(nullable = false)
     private double price;
 
-    @OneToOne
-    private User from;
+    @Column(nullable = false)
+    private String userFrom;
 
-    @OneToOne
-    private User to;
+    @Column(nullable = false)
+    private String userTo;
 
     @Getter
     @AllArgsConstructor

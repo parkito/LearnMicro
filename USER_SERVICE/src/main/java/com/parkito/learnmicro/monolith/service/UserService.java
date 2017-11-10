@@ -1,7 +1,7 @@
 package com.parkito.learnmicro.monolith.service;
 
+import com.parkito.learnmicro.monolith.controller.RestUserClient;
 import com.parkito.learnmicro.monolith.dto.UserDTO;
-import com.parkito.learnmicro.monolith.entity.Document;
 import com.parkito.learnmicro.monolith.entity.User;
 import com.parkito.learnmicro.monolith.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +15,18 @@ import java.util.stream.Collectors;
  */
 @Service
 public class UserService {
+    private static final String COMMA_SEPARATOR = ",";
+
     private final UserRepository userRepository;
+    private RestUserClient restUserClient;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RestUserClient restUserClient) {
         this.userRepository = userRepository;
+        this.restUserClient = restUserClient;
     }
 
-    public boolean createUser(String email, String firstName, String secondName) {
+    public UserDTO createUser(String email, String firstName, String secondName) {
         User existedUser = userRepository.findByEmail(email);
         if (existedUser == null) {
             User user = User.builder()
@@ -30,10 +34,9 @@ public class UserService {
                     .firstName(firstName)
                     .lastName(secondName)
                     .build();
-            userRepository.save(user);
-            return true;
+            return convert(userRepository.save(user));
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -64,8 +67,8 @@ public class UserService {
                     .email(user.getEmail())
                     .firstName(user.getFirstName())
                     .firstName(user.getLastName())
-                    .serials(user.getDocuments().stream()
-                            .map(Document::getSerial)
+                    .serials(restUserClient.getAllClientDocuments(user.getEmail()).stream()
+                            .map(d -> d.getSerial() + COMMA_SEPARATOR + d.getNumber())
                             .collect(Collectors.toList())
                     )
                     .build();

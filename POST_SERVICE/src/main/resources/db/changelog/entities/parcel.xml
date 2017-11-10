@@ -19,8 +19,12 @@
             <column name="WEIGHT" type="DOUBLE(17)">
                 <constraints nullable="false"/>
             </column>
-            <column name="FROM_USER_ID" type="BIGINT(19)"/>
-            <column name="TO_USER_ID" type="BIGINT(19)"/>
+            <column name="FROM_USER_ID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TO_USER_ID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

@@ -1,12 +1,18 @@
 package com.parkito.learnmicro.documents.service;
 
+import com.parkito.learnmicro.documents.controller.RestDocumentClient;
 import com.parkito.learnmicro.documents.dto.DocumentDTO;
+import com.parkito.learnmicro.documents.dto.UserDTO;
 import com.parkito.learnmicro.documents.entity.Document;
-import com.parkito.learnmicro.documents.entity.User;
 import com.parkito.learnmicro.documents.repository.DocumentRepository;
-import com.parkito.learnmicro.documents.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 /**
  * @author Artem Karnov @date 11/6/2017.
@@ -14,25 +20,25 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DocumentService {
-    private final UserRepository userRepository;
+    private final RestDocumentClient restDocumentClient;
     private final DocumentRepository documentRepository;
 
     @Autowired
-    public DocumentService(UserRepository userRepository, DocumentRepository documentRepository) {
-        this.userRepository = userRepository;
+    public DocumentService(RestDocumentClient restDocumentClient, DocumentRepository documentRepository) {
+        this.restDocumentClient = restDocumentClient;
         this.documentRepository = documentRepository;
     }
 
     public DocumentDTO createDocument(String serial, String number, String email) {
         Document document = documentRepository.findBySerialAndNumber(serial, number);
-        User user = userRepository.findByEmail(email);
+        UserDTO user = restDocumentClient.findUserByEmail(email);
         if (document != null || user == null) {
             return null;
         } else {
             Document documentForPersisting = Document.builder()
                     .serial(serial)
                     .number(number)
-                    .user(user)
+                    .userEmail(user.getEmail())
                     .build();
             documentForPersisting = documentRepository.save(documentForPersisting);
             return convert(documentForPersisting);
@@ -47,7 +53,7 @@ public class DocumentService {
             return DocumentDTO.builder()
                     .serial(document.getSerial())
                     .number(document.getNumber())
-                    .email(document.getUser().getEmail())
+                    .email(document.getUserEmail())
                     .build();
         }
     }
@@ -62,15 +68,35 @@ public class DocumentService {
     }
 
     private DocumentDTO convert(Document document) {
-        User user = userRepository.findByEmail(document.getUser().getEmail());
-        if (user != null) {
+        if (document != null) {
             return DocumentDTO.builder()
                     .number(document.getNumber())
                     .serial(document.getSerial())
-                    .email(user.getEmail())
+                    .email(document.getUserEmail())
                     .build();
         } else {
             return null;
+        }
+    }
+
+    public List<DocumentDTO> findAllDocumentsForUser(String email) {
+        UserDTO user = restDocumentClient.findUserByEmail(email);
+        if (user == null) {
+            return null;
+        } else {
+            return user.getSerials().stream()
+                    .map(s -> {
+                                List<String> serialAndNumber = Collections.list(new StringTokenizer(s, ",")).stream()
+                                        .map(token -> (String) token).collect(Collectors.toList());
+                                Document document = documentRepository.findBySerialAndNumber(serialAndNumber.get(0), serialAndNumber.get(1));
+                                if (document != null) {
+                                    return convert(document);
+                                } else {
+                                    return null;
+                                }
+                            }
+                    ).filter(Objects::nonNull)
+                    .collect(Collectors.toList());
         }
     }
 }
