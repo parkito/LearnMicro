@@ -5,14 +5,10 @@
 
     <!-- Entities -->
     <include file="entities/user.xml" relativeToChangelogFile="true"/>
-    <include file="entities/document.xml" relativeToChangelogFile="true"/>
-    <include file="entities/parcel.xml" relativeToChangelogFile="true"/>
     <!--Constrains-->
     <include file="entities/constraints" relativeToChangelogFile="true"/>
     <!--Sequences-->
     <include file="entities/sequence.xml" relativeToChangelogFile="true"/>
     <!--Data-->
     <include file="data/user.xml" relativeToChangelogFile="true"/>
-    <include file="data/document.xml" relativeToChangelogFile="true"/>
-    <include file="data/parcel.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -33,7 +33,6 @@ public class RestUserClient {
         this.findAllDocumentsForUserPath = findAllDocumentsForUserPath;
     }
 
-
     public List<DocumentDTO> getAllClientDocuments(String email) {
         URI targetUrl = UriComponentsBuilder
                 .fromUriString(apiDocumentServiceApiUrl)

@@ -22,12 +22,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class PostRestController {
-    private final PostRestClient postRestClient;
     private final ParcelService parcelService;
 
     @Autowired
-    public PostRestController(PostRestClient postRestClient, ParcelService parcelService) {
-        this.postRestClient = postRestClient;
+    public PostRestController(ParcelService parcelService) {
         this.parcelService = parcelService;
     }
 

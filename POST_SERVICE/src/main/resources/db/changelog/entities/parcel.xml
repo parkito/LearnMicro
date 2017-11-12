@@ -19,10 +19,10 @@
             <column name="WEIGHT" type="DOUBLE(17)">
                 <constraints nullable="false"/>
             </column>
-            <column name="FROM_USER_ID" type="VARCHAR(255)">
+            <column name="USER_FROM" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="TO_USER_ID" type="VARCHAR(255)">
+            <column name="USER_TO" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -36,15 +36,4 @@
         <addUniqueConstraint columnNames="NUMBER" constraintName="UK_QE0L0Y5AMO7ER9X5XA9SADPGN" tableName="PARCEL"/>
     </changeSet>
 
-    <changeSet author="akarnov (generated)" id="1510152399620-10">
-        <createIndex indexName="FKBINTMUSGHCLXEQWT1ENR19S6I_INDEX_8" tableName="PARCEL">
-            <column name="TO_USER_ID"/>
-        </createIndex>
-    </changeSet>
-
-    <changeSet author="akarnov (generated)" id="1510152399620-12">
-        <createIndex indexName="FKKXNVFW71I8Q0GUK3PJY2I9G56_INDEX_8" tableName="PARCEL">
-            <column name="FROM_USER_ID"/>
-        </createIndex>
-    </changeSet>
 </databaseChangeLog>
