@@ -2,6 +2,7 @@ package com.parkito.learnmicro.monolith.controller;
 
 import com.parkito.learnmicro.monolith.dto.DocumentDTO;
 import com.parkito.learnmicro.monolith.dto.UserDTO;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -17,6 +18,7 @@ import java.net.URI;
  * @author Artem Karnov @date 11/6/2017.
  * artem.karnov@t-systems.com
  */
+@Log4j2
 @Component
 public class PostRestClient {
     private final RestTemplate restTemplate;
@@ -40,6 +42,7 @@ public class PostRestClient {
 
 
     public UserDTO findUserByEmail(String email) {
+        log.info("findUserByEmail {}", email);
         URI targetUrl = UriComponentsBuilder
                 .fromHttpUrl(apiUserServiceApiUrl)
                 .pathSegment(findUserByEmailPath)
@@ -50,11 +53,13 @@ public class PostRestClient {
                     new ParameterizedTypeReference<UserDTO>() {
                     }).getBody();
         } catch (Exception ex) {
+            log.error("Goes wrong during USER_SERVICE {} connection !!!", targetUrl, ex);
             return null;
         }
     }
 
     public DocumentDTO findDocumentBySerialAndNumber(String serial, String number) {
+        log.info("findDocumentBySerialAndNumber {}, {}", serial, number);
         URI targetUrl = UriComponentsBuilder
                 .fromHttpUrl(apiDocumentServiceApiUrl)
                 .pathSegment(findDocumentBySerialAndNumber)
@@ -66,6 +71,7 @@ public class PostRestClient {
                     new ParameterizedTypeReference<DocumentDTO>() {
                     }).getBody();
         } catch (Exception ex) {
+            log.error("Goes wrong during DOCUMENT_SERVICE {} connection !!!", targetUrl, ex);
             return null;
         }
     }

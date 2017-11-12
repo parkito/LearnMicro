@@ -3,6 +3,7 @@ package com.parkito.learnmicro.monolith.controller;
 import com.parkito.learnmicro.monolith.dto.ParcelDTO;
 import com.parkito.learnmicro.monolith.entity.Parcel;
 import com.parkito.learnmicro.monolith.service.ParcelService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author Artem Karnov @date 11/6/2017.
  * artem.karnov@t-systems.com
  */
+@Log4j2
 @RestController
 @RequestMapping("/api/v1")
 public class PostRestController {
@@ -37,6 +39,7 @@ public class PostRestController {
                                                   @RequestParam double weight,
                                                   @RequestParam String emailFrom,
                                                   @RequestParam String emailTo) {
+        log.info("In createParcel()");
         ParcelDTO parcel = parcelService.createParcel(number, price, weight, emailFrom, emailTo, Parcel.Status.IN_PROCESS.getCode());
         headers.clear();
         if (parcel != null) {
@@ -50,6 +53,7 @@ public class PostRestController {
 
     @RequestMapping(path = "/find-parcel-by-number", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ParcelDTO> findParcelByNumber(@RequestParam long number) {
+        log.info("In findParcelByNumber()");
         ParcelDTO parcel = parcelService.findParcelByNumber(number);
         headers.clear();
         if (parcel == null) {
@@ -63,6 +67,7 @@ public class PostRestController {
 
     @RequestMapping(path = "/find-all-parcels-for-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ParcelDTO>> findAllParcelsForUser(@RequestParam String email) {
+        log.info("In findAllParcelsForUser()");
         List<ParcelDTO> allParcelsForUser = parcelService.getAllParcelsForUser(email);
         headers.clear();
         if (allParcelsForUser.isEmpty()) {
@@ -79,6 +84,7 @@ public class PostRestController {
                                                       @RequestParam String email,
                                                       @RequestParam String docSerial,
                                                       @RequestParam String docNumber) {
+        log.info("In getParcelForUser()");
         ParcelDTO parcel = parcelService.getParcelForUser(parcelNumber, email, docSerial, docNumber);
         headers.clear();
         if (parcel == null) {
