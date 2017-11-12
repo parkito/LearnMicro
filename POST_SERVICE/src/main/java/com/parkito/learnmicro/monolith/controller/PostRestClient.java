@@ -44,6 +44,7 @@ public class PostRestClient {
         URI targetUrl = UriComponentsBuilder
                 .fromUriString(apiUserServiceApiUrl)
                 .pathSegment(findUserByEmailPath)
+                .queryParam(email)
                 .build().toUri();
 
         ResponseEntity<UserDTO> result = restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
