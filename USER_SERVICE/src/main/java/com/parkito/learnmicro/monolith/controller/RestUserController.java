@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Log4j2
 @RestController
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v1")
 public class RestUserController {
     private final UserService userService;
 
