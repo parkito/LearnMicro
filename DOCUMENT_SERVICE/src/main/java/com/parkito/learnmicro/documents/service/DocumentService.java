@@ -8,10 +8,7 @@ import com.parkito.learnmicro.documents.repository.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 /**
@@ -80,22 +77,12 @@ public class DocumentService {
     }
 
     public List<DocumentDTO> findAllDocumentsForUser(String email) {
-        UserDTO user = restDocumentClient.findUserByEmail(email);
-        if (user == null) {
+        List<Document> documents = documentRepository.findByUserEmail(email);
+        if (documents == null) {
             return null;
         } else {
-            return user.getSerials().stream()
-                    .map(s -> {
-                                List<String> serialAndNumber = Collections.list(new StringTokenizer(s, ",")).stream()
-                                        .map(token -> (String) token).collect(Collectors.toList());
-                                Document document = documentRepository.findBySerialAndNumber(serialAndNumber.get(0), serialAndNumber.get(1));
-                                if (document != null) {
-                                    return convert(document);
-                                } else {
-                                    return null;
-                                }
-                            }
-                    ).filter(Objects::nonNull)
+            return documents.stream()
+                    .map(this::convert)
                     .collect(Collectors.toList());
         }
     }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -34,15 +33,18 @@ public class RestDocumentClient {
 
     public UserDTO findUserByEmail(String email) {
         URI targetUrl = UriComponentsBuilder
-                .fromUriString(apiUserServiceApiUrl)
+                .fromHttpUrl(apiUserServiceApiUrl)
                 .pathSegment(findUserByEmailPath)
                 .queryParam("email", email)
                 .build().toUri();
 
-        ResponseEntity<UserDTO> result = restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
-                new ParameterizedTypeReference<UserDTO>() {
-                });
+        try {
+            return restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
+                    new ParameterizedTypeReference<UserDTO>() {
+                    }).getBody();
+        } catch (Exception ex) {
+            return null;
+        }
 
-        return result.getBody();
     }
 }

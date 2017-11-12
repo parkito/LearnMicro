@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -35,16 +34,17 @@ public class RestUserClient {
 
     public List<DocumentDTO> getAllClientDocuments(String email) {
         URI targetUrl = UriComponentsBuilder
-                .fromUriString(apiDocumentServiceApiUrl)
+                .fromHttpUrl(apiDocumentServiceApiUrl)
                 .pathSegment(findAllDocumentsForUserPath)
                 .queryParam("email", email)
                 .build().toUri();
 
-
-        ResponseEntity<List<DocumentDTO>> result = restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
-                new ParameterizedTypeReference<List<DocumentDTO>>() {
-                });
-
-        return result.getBody();
+        try {
+            return restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
+                    new ParameterizedTypeReference<List<DocumentDTO>>() {
+                    }).getBody();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 }

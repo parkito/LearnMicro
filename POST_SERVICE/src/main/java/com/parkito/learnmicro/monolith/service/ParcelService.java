@@ -57,7 +57,8 @@ public class ParcelService {
                     .userFrom(userFrom.getEmail())
                     .userTo(userTo.getEmail())
                     .build();
-            return convert(parcelRepository.save(parcelForPersisting));
+            Parcel persistedParcel = parcelRepository.save(parcelForPersisting);
+            return convert(persistedParcel);
         } else {
             return null;
         }

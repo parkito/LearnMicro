@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -30,8 +29,8 @@ public class PostRestClient {
     public PostRestClient(RestTemplate restTemplate,
                           @Value("${rest.document-service.api.path}") String apiDocumentServiceApiUrl,
                           @Value("${rest.user-service.api.path}") String apiUserServiceApiUrl,
-                          @Value("$rest.post-service.find-user-by-email-path") String findUserByEmailPath,
-                          @Value("$rest.post-service.find-all-documents-for-user") String findAllUserDocuments) {
+                          @Value("${rest.post-service.find-user-by-email.path}") String findUserByEmailPath,
+                          @Value("${rest.post-service.find-all-documents-for-user.path}") String findAllUserDocuments) {
         this.restTemplate = restTemplate;
         this.apiDocumentServiceApiUrl = apiDocumentServiceApiUrl;
         this.apiUserServiceApiUrl = apiUserServiceApiUrl;
@@ -42,30 +41,32 @@ public class PostRestClient {
 
     public UserDTO findUserByEmail(String email) {
         URI targetUrl = UriComponentsBuilder
-                .fromUriString(apiUserServiceApiUrl)
+                .fromHttpUrl(apiUserServiceApiUrl)
                 .pathSegment(findUserByEmailPath)
-                .queryParam(email)
+                .queryParam("email", email)
                 .build().toUri();
-
-        ResponseEntity<UserDTO> result = restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
-                new ParameterizedTypeReference<UserDTO>() {
-                });
-
-        return result.getBody();
+        try {
+            return restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
+                    new ParameterizedTypeReference<UserDTO>() {
+                    }).getBody();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     public DocumentDTO findDocumentBySerialAndNumber(String serial, String number) {
         URI targetUrl = UriComponentsBuilder
-                .fromUriString(apiDocumentServiceApiUrl)
+                .fromHttpUrl(apiDocumentServiceApiUrl)
                 .pathSegment(findAllUserDocumentsPath)
                 .queryParam("serial", serial)
                 .queryParam("number", number)
                 .build().toUri();
-
-        ResponseEntity<DocumentDTO> result = restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
-                new ParameterizedTypeReference<DocumentDTO>() {
-                });
-
-        return result.getBody();
+        try {
+            return restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
+                    new ParameterizedTypeReference<DocumentDTO>() {
+                    }).getBody();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 }
