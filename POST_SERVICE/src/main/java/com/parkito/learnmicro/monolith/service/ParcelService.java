@@ -69,7 +69,7 @@ public class ParcelService {
         DocumentDTO userDocument = postRestClient.findDocumentBySerialAndNumber(docSerial, docNumber);
         Parcel parcel = parcelRepository.findByNumber(parcelNumber);
 
-        if (user != null && userDocument != null && parcel != null && parcel.getUserTo().equals(user)) {
+        if (user != null && userDocument != null && parcel != null && parcel.getUserTo().equals(user.getEmail())) {
             if (parcel.getStatus() != Parcel.Status.DELIVERED) {
                 parcel.setStatus(Parcel.Status.DELIVERED);
                 Parcel savedParcel = parcelRepository.save(parcel);

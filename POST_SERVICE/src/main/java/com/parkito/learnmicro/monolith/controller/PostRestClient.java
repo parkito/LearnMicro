@@ -23,19 +23,19 @@ public class PostRestClient {
     private final String apiDocumentServiceApiUrl;
     private final String apiUserServiceApiUrl;
     private final String findUserByEmailPath;
-    private final String findAllUserDocumentsPath;
+    private final String findDocumentBySerialAndNumber;
 
     @Autowired
     public PostRestClient(RestTemplate restTemplate,
                           @Value("${rest.document-service.api.path}") String apiDocumentServiceApiUrl,
                           @Value("${rest.user-service.api.path}") String apiUserServiceApiUrl,
                           @Value("${rest.post-service.find-user-by-email.path}") String findUserByEmailPath,
-                          @Value("${rest.post-service.find-all-documents-for-user.path}") String findAllUserDocuments) {
+                          @Value("${rest.post-service.find-documents-by-serial-and-number.path}") String findDocumentBySerialAndNumber) {
         this.restTemplate = restTemplate;
         this.apiDocumentServiceApiUrl = apiDocumentServiceApiUrl;
         this.apiUserServiceApiUrl = apiUserServiceApiUrl;
         this.findUserByEmailPath = findUserByEmailPath;
-        this.findAllUserDocumentsPath = findAllUserDocuments;
+        this.findDocumentBySerialAndNumber = findDocumentBySerialAndNumber;
     }
 
 
@@ -57,7 +57,7 @@ public class PostRestClient {
     public DocumentDTO findDocumentBySerialAndNumber(String serial, String number) {
         URI targetUrl = UriComponentsBuilder
                 .fromHttpUrl(apiDocumentServiceApiUrl)
-                .pathSegment(findAllUserDocumentsPath)
+                .pathSegment(findDocumentBySerialAndNumber)
                 .queryParam("serial", serial)
                 .queryParam("number", number)
                 .build().toUri();
