@@ -18,25 +18,24 @@ import java.util.List;
  * artem.karnov@t-systems.com
  */
 @Component
-public class RestUserClient {
+public class RestDocumentsClient {
     private final RestTemplate restTemplate;
     private final String apiDocumentServiceApiUrl;
-    private final String findAllDocumentsForUserPath;
+    private final String findAllDocuments;
 
     @Autowired
-    public RestUserClient(RestTemplate restTemplate,
-                          @Value("${rest.document-service.api.path}") String apiDocumentServiceApiUrl,
-                          @Value("${rest.post-service.find-all-documents-for-customer}") String findAllDocumentsForUserPath) {
+    public RestDocumentsClient(RestTemplate restTemplate,
+                               @Value("${rest.document-service.api.path}") String apiDocumentServiceApiUrl,
+                               @Value("${rest.document-service.find-all-documents}") String findAllDocuments) {
         this.restTemplate = restTemplate;
         this.apiDocumentServiceApiUrl = apiDocumentServiceApiUrl;
-        this.findAllDocumentsForUserPath = findAllDocumentsForUserPath;
+        this.findAllDocuments = findAllDocuments;
     }
 
-    public List<DocumentDTO> getAllClientDocuments(String email) {
+    public List<DocumentDTO> getAllClientDocuments() {
         URI targetUrl = UriComponentsBuilder
                 .fromHttpUrl(apiDocumentServiceApiUrl)
-                .pathSegment(findAllDocumentsForUserPath)
-                .queryParam("email", email)
+                .pathSegment(findAllDocuments)
                 .build().toUri();
 
         try {
