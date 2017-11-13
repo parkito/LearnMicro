@@ -26,7 +26,7 @@ public class ForcedRestController {
 
 
     @RequestMapping(path = "/force-user-removing", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> createParcel(@RequestParam String email) {
+    public ResponseEntity<Boolean> forceUserRemoving(@RequestParam String email) {
         log.info("In createParcel()");
         boolean isUserRemoved = postRestClient.forceUserRemove(email);
         boolean isDocumentRemoved = postRestClient.forceDocumentRemove(email);

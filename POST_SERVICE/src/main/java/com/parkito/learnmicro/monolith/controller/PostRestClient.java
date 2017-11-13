@@ -101,7 +101,7 @@ public class PostRestClient {
     public boolean forceDocumentRemove(String email) {
         log.info("forceDocumentRemove {}", email);
         URI targetUrl = UriComponentsBuilder
-                .fromHttpUrl(apiUserServiceApiUrl)
+                .fromHttpUrl(apiDocumentServiceApiUrl)
                 .pathSegment(forcedDocumentRemovingPath)
                 .queryParam("email", email)
                 .build().toUri();
