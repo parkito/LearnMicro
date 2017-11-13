@@ -1,6 +1,5 @@
 package com.parkito.learnmicro.monolith.service;
 
-import com.parkito.learnmicro.monolith.controller.RestUserClient;
 import com.parkito.learnmicro.monolith.dto.UserDTO;
 import com.parkito.learnmicro.monolith.entity.User;
 import com.parkito.learnmicro.monolith.repository.UserRepository;
@@ -15,15 +14,22 @@ import java.util.stream.Collectors;
  */
 @Service
 public class UserService {
-    private static final String COMMA_SEPARATOR = ",";
-
     private final UserRepository userRepository;
-    private RestUserClient restUserClient;
 
     @Autowired
-    public UserService(UserRepository userRepository, RestUserClient restUserClient) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.restUserClient = restUserClient;
+    }
+
+
+    public boolean deleteUserByEmail(String email) {
+        User userForDelete = userRepository.findByEmail(email);
+        if (userForDelete != null) {
+            userRepository.delete(userForDelete);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public UserDTO createUser(String email, String firstName, String secondName) {
@@ -49,16 +55,6 @@ public class UserService {
         }
     }
 
-    public boolean deleteUserByEmail(String email) {
-        User userForDelete = userRepository.findByEmail(email);
-        if (userForDelete != null) {
-            userRepository.delete(userForDelete);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private UserDTO convert(User user) {
         if (user == null) {
             return null;
@@ -67,23 +63,6 @@ public class UserService {
                     .email(user.getEmail())
                     .firstName(user.getFirstName())
                     .firstName(user.getLastName())
-                    .serials(restUserClient.getAllClientDocuments(user.getEmail()).stream()
-                            .map(d -> d.getSerial() + COMMA_SEPARATOR + d.getNumber())
-                            .collect(Collectors.toList())
-                    )
-                    .build();
-        }
-    }
-
-    private User parse(UserDTO userDTO) {
-        User user = userRepository.findByEmail(userDTO.getEmail());
-        if (user == null) {
-            return null;
-        } else {
-            return User.builder()
-                    .email(userDTO.getEmail())
-                    .firstName(userDTO.getFirstName())
-                    .lastName(userDTO.getLastName())
                     .build();
         }
     }

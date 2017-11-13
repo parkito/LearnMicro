@@ -26,18 +26,24 @@ public class PostRestClient {
     private final String apiUserServiceApiUrl;
     private final String findUserByEmailPath;
     private final String findDocumentBySerialAndNumber;
+    private final String forcedUserRemovingPath;
+    private final String forcedDocumentRemovingPath;
 
     @Autowired
     public PostRestClient(RestTemplate restTemplate,
                           @Value("${rest.document-service.api.path}") String apiDocumentServiceApiUrl,
                           @Value("${rest.user-service.api.path}") String apiUserServiceApiUrl,
                           @Value("${rest.post-service.find-user-by-email.path}") String findUserByEmailPath,
-                          @Value("${rest.post-service.find-documents-by-serial-and-number.path}") String findDocumentBySerialAndNumber) {
+                          @Value("${rest.post-service.find-documents-by-serial-and-number.path}") String findDocumentBySerialAndNumber,
+                          @Value("${rest.user-service.forced-user-removing-path}") String forcedUserRemovingPath,
+                          @Value("${rest.document-service.forced-document-removing-path}") String forcedDocumentRemovingPath) {
         this.restTemplate = restTemplate;
         this.apiDocumentServiceApiUrl = apiDocumentServiceApiUrl;
         this.apiUserServiceApiUrl = apiUserServiceApiUrl;
         this.findUserByEmailPath = findUserByEmailPath;
         this.findDocumentBySerialAndNumber = findDocumentBySerialAndNumber;
+        this.forcedUserRemovingPath = forcedUserRemovingPath;
+        this.forcedDocumentRemovingPath = forcedDocumentRemovingPath;
     }
 
 
@@ -73,6 +79,39 @@ public class PostRestClient {
         } catch (Exception ex) {
             log.error("Goes wrong during DOCUMENT_SERVICE {} connection !!!", targetUrl, ex);
             return null;
+        }
+    }
+
+    public boolean forceUserRemove(String email) {
+        log.info("forceUserRemove {}", email);
+        URI targetUrl = UriComponentsBuilder
+                .fromHttpUrl(apiUserServiceApiUrl)
+                .pathSegment(forcedUserRemovingPath)
+                .queryParam("email", email)
+                .build().toUri();
+        try {
+            return restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
+                    Boolean.class).getBody();
+        } catch (Exception ex) {
+            log.error("Goes wrong during USER_SERVICE {} connection !!!", targetUrl, ex);
+            return false;
+        }
+    }
+
+    public boolean forceDocumentRemove(String email) {
+        log.info("forceDocumentRemove {}", email);
+        URI targetUrl = UriComponentsBuilder
+                .fromHttpUrl(apiUserServiceApiUrl)
+                .pathSegment(forcedDocumentRemovingPath)
+                .queryParam("email", email)
+                .build().toUri();
+        try {
+            return restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
+                    new ParameterizedTypeReference<Boolean>() {
+                    }).getBody();
+        } catch (Exception ex) {
+            log.error("Goes wrong during DOCUMENT_SERVICE {} connection !!!", targetUrl, ex);
+            return false;
         }
     }
 }

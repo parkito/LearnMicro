@@ -86,4 +86,14 @@ public class DocumentService {
                     .collect(Collectors.toList());
         }
     }
+
+    public boolean deleteUserDocuments(String email) {
+        List<Document> documentsForDeleting = documentRepository.findByUserEmail(email);
+        try {
+            documentRepository.deleteAll(documentsForDeleting);
+            return true;
+        }catch (Exception ex){
+            return false;
+        }
+    }
 }

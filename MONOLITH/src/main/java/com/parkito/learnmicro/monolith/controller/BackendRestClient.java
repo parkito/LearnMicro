@@ -22,48 +22,49 @@ import java.util.List;
 @Component
 public class BackendRestClient {
     private final RestTemplate restTemplate;
-    private final String apiUrl;
-    private final String findAllParcelsForUserPath;
-    private final String findAllUserDocumentsPath;
+    // private final String apiUrl;
+    // private final String findAllParcelsForUserPath;
+    // private final String findAllUserDocumentsPath;
 
     @Autowired
-    public BackendRestClient(RestTemplate restTemplate,
-                             @Value("${rest.post-service.api.path}") String apiUrl,
-                             @Value("${rest.post-service.findByNumberPath}") String findParcelByNumberPath,
-                             @Value("$rest.post-service.findAllParcelsForUserPath") String findAllParcelsForUser,
-                             @Value("$rest.post-service.findAllUserDocumentsPath") String findAllUserDocuments) {
+    public BackendRestClient(RestTemplate restTemplate
+                             // @Value("${rest.post-service.api.path}") String apiUrl,
+                             // @Value("${rest.post-service.findByNumberPath}") String findParcelByNumberPath,
+                             // @Value("$rest.post-service.findAllParcelsForUserPath") String findAllParcelsForUser,
+                             // @Value("$rest.post-service.findAllUserDocumentsPath") String findAllUserDocuments
+                             ) {
         this.restTemplate = restTemplate;
-        this.apiUrl = apiUrl;
-        this.findAllParcelsForUserPath = findAllParcelsForUser;
-        this.findAllUserDocumentsPath = findAllUserDocuments;
+        // this.apiUrl = apiUrl;
+        // this.findAllParcelsForUserPath = findAllParcelsForUser;
+        // this.findAllUserDocumentsPath = findAllUserDocuments;
     }
 
 
-    public List<ParcelDTO> getAllUserParcels(String email) {
-        URI targetUrl = UriComponentsBuilder
-                .fromUriString(apiUrl)
-                .pathSegment(findAllParcelsForUserPath)
-                .build().toUri();
+    // public List<ParcelDTO> getAllUserParcels(String email) {
+    //     URI targetUrl = UriComponentsBuilder
+    //             .fromUriString(apiUrl)
+    //             .pathSegment(findAllParcelsForUserPath)
+    //             .build().toUri();
 
 
-        ResponseEntity<List<ParcelDTO>> result = restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
-                new ParameterizedTypeReference<List<ParcelDTO>>() {
-                });
+    //     ResponseEntity<List<ParcelDTO>> result = restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
+    //             new ParameterizedTypeReference<List<ParcelDTO>>() {
+    //             });
 
-        return result.getBody();
-    }
+    //     return result.getBody();
+    // }
 
-    public List<DocumentDTO> getAllClientDocuments(String email) {
-        URI targetUrl = UriComponentsBuilder
-                .fromUriString(apiUrl)
-                .pathSegment(findAllUserDocumentsPath)
-                .build().toUri();
+    // public List<DocumentDTO> getAllClientDocuments(String email) {
+    //     URI targetUrl = UriComponentsBuilder
+    //             .fromUriString(apiUrl)
+    //             .pathSegment(findAllUserDocumentsPath)
+    //             .build().toUri();
 
 
-        ResponseEntity<List<DocumentDTO>> result = restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
-                new ParameterizedTypeReference<List<DocumentDTO>>() {
-                });
+    //     ResponseEntity<List<DocumentDTO>> result = restTemplate.exchange(targetUrl, HttpMethod.GET, HttpEntity.EMPTY,
+    //             new ParameterizedTypeReference<List<DocumentDTO>>() {
+    //             });
 
-        return result.getBody();
-    }
+    //     return result.getBody();
+    // }
 }

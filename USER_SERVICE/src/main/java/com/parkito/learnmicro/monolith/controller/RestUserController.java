@@ -61,17 +61,10 @@ public class RestUserController {
     }
 
     @RequestMapping(path = "/delete-user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteUser(@RequestParam String email) {
+    public ResponseEntity<Boolean> deleteUser(@RequestParam String email) {
         log.info("In deleteUser()");
         boolean isUserDeleted = userService.deleteUserByEmail(email);
-        headers.clear();
-        if (isUserDeleted) {
-            headers.add("Status", "User deleted");
-        } else {
-            headers.add("Status", "User wasn't deleted");
-        }
-        return isUserDeleted ? new ResponseEntity<>(ResponseEntity.EMPTY, headers, HttpStatus.OK) :
-                new ResponseEntity<>(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(isUserDeleted, headers, HttpStatus.OK);
     }
 
 }

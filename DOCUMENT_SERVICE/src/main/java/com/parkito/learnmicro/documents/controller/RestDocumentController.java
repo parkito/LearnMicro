@@ -92,4 +92,17 @@ public class RestDocumentController {
                 new ResponseEntity<>(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(path = "/forced-document-removing", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> forcedDeleteDocument(@RequestParam String email) {
+        log.info("In deleteDocument()");
+        boolean isDocumentDeleted = documentService.deleteUserDocuments(email);
+        headers.clear();
+        if (isDocumentDeleted) {
+            headers.add("Status", "Document deleted");
+        } else {
+            headers.add("Status", "Document wasn't deleted");
+        }
+        return new ResponseEntity<>(isDocumentDeleted, headers, HttpStatus.OK);
+    }
+
 }
