@@ -12,7 +12,7 @@ public class SpringEurekaClientSchoolServiceInfoContributor implements InfoContr
 	@Override
 	public void contribute(Info.Builder builder) {
 		builder.withDetail("details",
-				Collections.singletonMap("description", "School service "));
+				Collections.singletonMap("description", "School service"));
 	}
 
 }

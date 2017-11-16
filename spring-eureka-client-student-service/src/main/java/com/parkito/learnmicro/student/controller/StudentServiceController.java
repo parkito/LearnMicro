@@ -17,7 +17,7 @@ public class StudentServiceController {
 	private static Map<String, List<Student>> schooDB = new HashMap<String, List<Student>>();
 
 	static {
-		schooDB = new HashMap<String, List<Student>>();
+		schooDB = new HashMap<>();
 
 		List<Student> lst = new ArrayList<Student>();
 		Student std = new Student("Artyom", "1st Grade");
@@ -25,7 +25,7 @@ public class StudentServiceController {
 		std = new Student("Saha", "2nd Grade");
 		lst.add(std);
 
-		schooDB.put("school#1", lst);
+		schooDB.put("school1", lst);
 
 		lst = new ArrayList<>();
 		std = new Student("Sima", "3th Grade");
@@ -33,7 +33,7 @@ public class StudentServiceController {
 		std = new Student("Ivan", "3th Grade");
 		lst.add(std);
 
-		schooDB.put("school#2", lst);
+		schooDB.put("school2", lst);
 
 	}
 
@@ -43,7 +43,7 @@ public class StudentServiceController {
 
 		List<Student> studentList = schooDB.get(schoolname);
 		if (studentList == null) {
-			studentList = new ArrayList<Student>();
+			studentList = new ArrayList<>();
 			Student std = new Student("Not Found", "N/A");
 			studentList.add(std);
 		}
