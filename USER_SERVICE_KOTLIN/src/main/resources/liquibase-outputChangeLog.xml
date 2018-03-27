@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="akarnov (generated)" id="1510152399620-1">
+        <createSequence sequenceName="HIBERNATE_SEQUENCE"/>
+    </changeSet>
+
+    <changeSet author="akarnov (generated)" id="1510152399620-5">
+        <addPrimaryKey columnNames="USER_ID" constraintName="CONSTRAINT_2" tableName="USER"/>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-6">
+        <addPrimaryKey columnNames="DOCUMENT_ID" constraintName="CONSTRAINT_6" tableName="DOCUMENT"/>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-7">
+        <addPrimaryKey columnNames="PARCEL_ID" constraintName="CONSTRAINT_8" tableName="PARCEL"/>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-8">
+        <addUniqueConstraint columnNames="EMAIL" constraintName="UK_OB8KQYQQGMEFL0ACO34AKDTPE" tableName="USER"/>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-9">
+        <addUniqueConstraint columnNames="NUMBER" constraintName="UK_QE0L0Y5AMO7ER9X5XA9SADPGN" tableName="PARCEL"/>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-10">
+        <createIndex indexName="FKBINTMUSGHCLXEQWT1ENR19S6I_INDEX_8" tableName="PARCEL">
+            <column name="TO_USER_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-11">
+        <createIndex indexName="FKJHDXDV9SIJHUJIYNQBB5JC010_INDEX_6" tableName="DOCUMENT">
+            <column name="USER_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-12">
+        <createIndex indexName="FKKXNVFW71I8Q0GUK3PJY2I9G56_INDEX_8" tableName="PARCEL">
+            <column name="FROM_USER_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-13">
+        <addForeignKeyConstraint baseColumnNames="TO_USER_ID" baseTableName="PARCEL" constraintName="FKBINTMUSGHCLXEQWT1ENR19S6I" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER"/>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-14">
+        <addForeignKeyConstraint baseColumnNames="USER_ID" baseTableName="DOCUMENT" constraintName="FKJHDXDV9SIJHUJIYNQBB5JC010" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER"/>
+    </changeSet>
+    <changeSet author="akarnov (generated)" id="1510152399620-15">
+        <addForeignKeyConstraint baseColumnNames="FROM_USER_ID" baseTableName="PARCEL" constraintName="FKKXNVFW71I8Q0GUK3PJY2I9G56" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="USER_ID" referencedTableName="USER"/>
+    </changeSet>
+</databaseChangeLog>
