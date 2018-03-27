@@ -1,15 +1,8 @@
 package com.parkito.learnmicro.monolith.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.experimental.Tolerate;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
+import lombok.Builder
+import lombok.Data
+import javax.persistence.*
 
 /**
  * @author Artem Karnov @date 11/6/2017.
@@ -18,21 +11,17 @@ import java.io.Serializable;
 @Entity
 @Builder
 @Data
-public class User implements Serializable {
-    @Tolerate
-    public User() {
-    }
+data class User(
+        @Id
+        @GeneratedValue(strategy = GenerationType.SEQUENCE)
+        val userId: Long,
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long userId;
+        @Column(nullable = false, unique = true)
+        val email: String,
 
-    @Column(nullable = false, unique = true)
-    private String email;
+        @Column(nullable = false)
+        val firstName: String,
 
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
-}
+        @Column(nullable = false)
+        val lastName: String
+)

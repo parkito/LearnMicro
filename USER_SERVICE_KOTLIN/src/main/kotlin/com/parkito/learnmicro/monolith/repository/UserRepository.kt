@@ -9,10 +9,7 @@ import org.springframework.stereotype.Repository;
  * artem.karnov@t-systems.com
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    User findByEmail(String email);
-
-    User deleteByEmail(String email);
-
+interface UserRepository : JpaRepository<User, Long> {
+    fun findByEmail(email: String): User
+    fun deleteByEmail(email: String): User;
 }
