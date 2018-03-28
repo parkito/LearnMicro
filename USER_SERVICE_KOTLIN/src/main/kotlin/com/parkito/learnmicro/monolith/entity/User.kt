@@ -23,5 +23,5 @@ data class User(
         val firstName: String,
 
         @Column(nullable = false)
-        val lastName: String
+        var lastName: String
 )
