@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
+import java.util.*
 
 /**
  * @author Artem Karnov @date 11/6/2017.
@@ -29,14 +30,15 @@ class RestUserClient(
                 .build().toUri();
 
         try {
+            //todo null safety kotlin style
             return restTemplate.exchange(
                     targetUrl,
                     HttpMethod.GET,
                     HttpEntity.EMPTY,
                     object : ParameterizedTypeReference<List<DocumentDTO>>() {}
-            ).getBody();
+            ).body;
         } catch (ex: Exception) {
-            return null;
+            return Collections.emptyList();
         }
     }
 }

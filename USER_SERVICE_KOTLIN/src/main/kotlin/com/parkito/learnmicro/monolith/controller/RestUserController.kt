@@ -19,52 +19,31 @@ import org.springframework.web.bind.annotation.RestController
 @Log4j2
 @RestController
 @RequestMapping("/api/v2")
-class RestUserController(@Autowired val userService: UserService) {
+class RestUserController {
+    @Autowired
+    lateinit var userService: UserService
 
     val headers: HttpHeaders = HttpHeaders();
 
     @GetMapping("/create-user")
     fun createUser(@RequestParam email: String,
                    @RequestParam firstName: String,
-                   @RequestParam secondName: String): ResponseEntity<UserDTO?> {
+                   @RequestParam secondName: String): ResponseEntity<UserDTO> {
 //        log.info("In createUser()");
-        var user: UserDTO? = userService.createUser(email, firstName, secondName);
-        headers.clear();
-        if (user != null) {
-            headers.add("Status", "User created");
-        } else {
-            headers.add("Status", "User wasn't created");
-        }
-        return ResponseEntity(user, headers, HttpStatus.OK)
-//            return ResponseEntity(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST);
+        val user: UserDTO = userService.createUser(email, firstName, secondName);
+        return ResponseEntity(user, HttpStatus.OK)
     }
 
     @GetMapping("/find-user")
-    fun findUser(@RequestParam email: String): ResponseEntity<UserDTO?> {
+    fun findUser(@RequestParam email: String): ResponseEntity<UserDTO> {
 //        log.info("In findUser()");
-        val user: UserDTO? = userService.findUserByEmail(email);
-        headers.clear();
-        if (user == null) {
-            headers.add("Status", "User wasn't found");
-        } else {
-            headers.add("Status", "User found");
-        }
-//            return ResponseEntity(ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST)
-        return ResponseEntity(user, headers, HttpStatus.OK);
+        return ResponseEntity(userService.findUserByEmail(email), HttpStatus.OK);
     }
 
     @GetMapping("/delete-user")
     fun deleteUser(@RequestParam email: String): ResponseEntity<Boolean> {
 //        log.info("In deleteUser()");
-        val isUserDeleted: Boolean = userService.deleteUserByEmail(email);
-        headers.clear();
-        if (isUserDeleted) {
-            headers.add("Status", "User deleted");
-        } else {
-            headers.add("Status", "User wasn't deleted");
-        }
-        return ResponseEntity(isUserDeleted, headers, HttpStatus.OK)
-//        return isUserDeleted ? new ResponseEntity<>(ResponseEntity.EMPTY, headers, HttpStatus.OK) :
-//        new ResponseEntity < > (ResponseEntity.EMPTY, headers, HttpStatus.BAD_REQUEST);
+        userService.deleteUserByEmail(email);
+        return ResponseEntity(true, HttpStatus.OK)
     }
 }

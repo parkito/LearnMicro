@@ -10,8 +10,6 @@ import java.io.Serializable
  * artem.karnov@t-systems.com
  */
 
-@Builder
-@Data
 data class DocumentDTO(
         val serial: String,
         val number: String,
