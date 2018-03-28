@@ -18,7 +18,7 @@ import java.net.URI
 @Component
 class RestUserClient(
         @Autowired val restTemplate: RestTemplate,
-        @Value("\${rest.document - service.api.path}") val apiDocumentServiceApiUrl: String,
+        @Value("\${rest.document-service.api.path}") val apiDocumentServiceApiUrl: String,
         @Value("\${rest.post-service.find-all-documents-for-customer}") val findAllDocumentsForUserPath: String) {
 
     fun getAllClientDocuments(email: String): List<DocumentDTO>? {

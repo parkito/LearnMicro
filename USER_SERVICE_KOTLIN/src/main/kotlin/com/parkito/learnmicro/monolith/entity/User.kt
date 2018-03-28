@@ -14,7 +14,7 @@ import javax.persistence.*
 data class User(
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE)
-        val userId: Long,
+        var userId: Long,
 
         @Column(nullable = false, unique = true)
         val email: String,
@@ -23,5 +23,5 @@ data class User(
         val firstName: String,
 
         @Column(nullable = false)
-        var lastName: String
+        val lastName: String
 )
