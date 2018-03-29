@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus
  * @author Artem Karnov @date 3/28/2018.
  * @email artem.karnov@t-systems.com
  */
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
 class ResourceNotFoundException : RuntimeException {
+    var developerMessage: String = ""
+
     constructor() : super()
     constructor(message: String?) : super(message)
     constructor(message: String?, cause: Throwable?) : super(message, cause)

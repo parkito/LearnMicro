@@ -13,4 +13,5 @@ data class ErrorDetails(
         var developerMessage: String) : Serializable {
 
     constructor(message: String, developerMessage: String) : this(Date(), message, developerMessage)
+    constructor(message: String) : this(Date(), message, "")
 }

@@ -1,13 +1,10 @@
 package com.parkito.learnmicro.monolith.exception.handler
 
 import com.parkito.learnmicro.monolith.exception.detail.ErrorDetails
-import com.parkito.learnmicro.monolith.exception.value.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 /**
@@ -15,12 +12,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * @email  artem.karnov@t-systems.com
  */
 @ControllerAdvice
-@RestController
 class TechnicalReasonExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(Exception::class)
-    fun handleUserNotFoundException(ex: ResourceNotFoundException, request: WebRequest): ResponseEntity<ErrorDetails> {
-        val errorDetails = ErrorDetails(ex.message!!, request.getDescription(false))
+    fun handleUserNotFoundException(ex: Exception): ResponseEntity<ErrorDetails> {
+        val errorDetails = ErrorDetails(ex.message!!)
         return ResponseEntity(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 }

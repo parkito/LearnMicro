@@ -52,4 +52,10 @@ class UserService {
     fun deleteUserByEmail(email: String) {
         userRepository.deleteByEmail(email)
     }
+
+    fun getAllUsers(): List<UserDTO> {
+        return userRepository.findAll().map { u ->
+            UserDTO.fromEntity(u, restUserClient.getAllClientDocuments(u.email)!!.map { s -> s.serial })
+        }
+    }
 }
