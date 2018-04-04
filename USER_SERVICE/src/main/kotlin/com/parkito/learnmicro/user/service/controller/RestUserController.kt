@@ -4,6 +4,7 @@ import com.parkito.learnmicro.user.service.dto.UserDTO
 import com.parkito.learnmicro.user.service.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController
 class RestUserController {
     val logger = LoggerFactory.getLogger(javaClass)
 
+    @Value("\${key-top}")
+    lateinit var str: String
+
     @Autowired
     lateinit var userService: UserService
 
@@ -34,6 +38,7 @@ class RestUserController {
 
     @GetMapping("/find-user")
     fun findUser(@RequestParam email: String): ResponseEntity<UserDTO> {
+        println(str)
         logger.info("In findUser(email = {})", email);
         return ResponseEntity(userService.findUserByEmail(email), HttpStatus.OK);
     }
