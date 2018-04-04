@@ -21,6 +21,7 @@
         <springfox.swagger.ui.version>2.7.0</springfox.swagger.ui.version>
         <kotlin.version>1.2.31</kotlin.version>
         <liquibase.maven.plugin.version>3.4.1</liquibase.maven.plugin.version>
+        <spring-cloud.version>Finchley.M9</spring-cloud.version>
     </properties>
 
     <parent>
@@ -98,7 +99,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.M8</version>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
