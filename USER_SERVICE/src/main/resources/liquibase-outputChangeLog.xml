@@ -4,8 +4,6 @@
         <createSequence sequenceName="HIBERNATE_SEQUENCE"/>
     </changeSet>
 
-
-
     <changeSet author="akarnov (generated)" id="1510152399620-5">
         <addPrimaryKey columnNames="USER_ID" constraintName="CONSTRAINT_2" tableName="USER"/>
     </changeSet>

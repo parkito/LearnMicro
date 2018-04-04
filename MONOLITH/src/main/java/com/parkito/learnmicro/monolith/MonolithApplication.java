@@ -38,11 +38,4 @@ public class MonolithApplication {
                 .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
                 .build();
     }
-
-//    @Bean
-//    public SpringLiquibase liquibase() {
-//        SpringLiquibase liquibase = new SpringLiquibase();
-//        liquibase.setChangeLog("classpath:db/changelog/db.changelog-master.xml");
-//        return liquibase;
-//    }
 }
