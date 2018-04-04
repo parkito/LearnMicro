@@ -1,5 +1,6 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG JAR_FILE
-ADD ${JAR_FILE} user-1.0-SNAPSHOT.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/user-1.0-SNAPSHOT.jar"]
+FROM openjdk:8-jre-alpine
+RUN mkdir /var/lib/user-service
+COPY /target/user-1.0-SNAPSHOT.jar /var/lib/user-service
+WORKDIR /var/lib/user-service
+EXPOSE 2144
+CMD ["java", "-jar", "user-1.0-SNAPSHOT.jar"]
