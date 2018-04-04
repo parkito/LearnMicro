@@ -40,7 +40,7 @@ class UserService {
             val docs = restUserClient.getAllClientDocuments(email)
             var serials = Collections.emptyList<String>()
             if (docs != null) {
-                serials = docs.map { d -> d.serial }.toCollection(serials)
+                serials = docs.map { d -> d.serial }
             }
             return UserDTO.fromEntity(user, serials)
         } else {
