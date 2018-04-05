@@ -9,6 +9,12 @@ services:
     ports:
       - "9090:9090"
 
+  start_dependencies:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - config-service
+    command: config-service:9090
+
   eureka-service:
     container_name: eureka-service
     image: eureka-service
@@ -16,6 +22,8 @@ services:
       - default
     ports:
       - "9091:9091"
+    depends_on:
+      - start_dependencies
 
   post-service:
     container_name: post-service
@@ -25,6 +33,8 @@ services:
       - default
     ports:
       - "2142:2142"
+    depends_on:
+      - start_dependencies
 
   document-service:
     container_name: document-service
@@ -34,6 +44,8 @@ services:
       - default
     ports:
       - "2143:2143"
+    depends_on:
+      - start_dependencies
 
   user-service:
     container_name: user-service
@@ -43,6 +55,8 @@ services:
       - default
     ports:
       - "2144:2144"
+    depends_on:
+      - start_dependencies
 
 networks:
   default:

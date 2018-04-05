@@ -1,25 +1,7 @@
 version: '2' 
 services:
-  config-service:
-    container_name: config-service
-    hostname: config-service
-    image: config-service
-    networks:
-      - default
-    ports:
-      - "9090:9090"
-
-  eureka-service:
-    container_name: eureka-service
-    image: eureka-service
-    networks:
-      - default
-    ports:
-      - "9091:9091"
-
   post-service:
     container_name: post-service
-    hostname: post-service
     image: post-service
     networks:
       - default
@@ -28,7 +10,6 @@ services:
 
   document-service:
     container_name: document-service
-    hostname: document-service
     image: document-service
     networks:
       - default
@@ -37,7 +18,6 @@ services:
 
   user-service:
     container_name: user-service
-    hostname: user-service
     image: user-service
     networks:
       - default
@@ -46,4 +26,5 @@ services:
 
 networks:
   default:
-    driver: bridge
+    external:
+      name: default1

@@ -1,0 +1,22 @@
+version: '2' 
+services:
+  config-service:
+    container_name: config-service
+    hostname: config-service
+    image: config-service
+    networks:
+      - default1
+    ports:
+      - "9090:9090"
+
+  eureka-service:
+    container_name: eureka-service
+    image: eureka-service
+    networks:
+      - default1
+    ports:
+      - "9091:9091"
+
+networks:
+  default1:
+    driver: bridge

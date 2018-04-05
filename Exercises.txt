@@ -1,0 +1,36 @@
+Describtion
+http://localhost:9090/ - config
+http://localhost:9091/ - eureka service
+
+post service
+http://localhost:2142/swagger-ui.html
+http://localhost:2142/h2
+
+document service
+http://localhost:2143/swagger-ui.html
+http://localhost:2143/h2
+
+user service
+http://localhost:2144/swagger-ui.html
+http://localhost:2144/h2
+
+
+Exercise#1
+
+1) Up config service
+2) Up eureka service
+3) Up others service
+4) Get parcels for email1 user
+
+Exercise#2
+How many users in users db?
+
+Exercise#3
+1) Get list of all users on user-service
+2) Turn off document-service
+3) Get list again
+4) What changed?
+
+
+Exercise#4 (Advanced)
+Find root cause why we can't create parcel for users
