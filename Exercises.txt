@@ -1,4 +1,4 @@
-Describtion
+Description
 http://localhost:9090/ - config
 http://localhost:9091/ - eureka service
 

@@ -5,7 +5,7 @@ services:
     hostname: config-service
     image: config-service
     networks:
-      - default1
+      - default
     ports:
       - "9090:9090"
 
@@ -13,10 +13,10 @@ services:
     container_name: eureka-service
     image: eureka-service
     networks:
-      - default1
+      - default
     ports:
       - "9091:9091"
 
 networks:
-  default1:
+  default:
     driver: bridge

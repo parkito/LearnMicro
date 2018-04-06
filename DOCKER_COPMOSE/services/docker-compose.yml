@@ -23,8 +23,3 @@ services:
       - default
     ports:
       - "2144:2144"
-
-networks:
-  default:
-    external:
-      name: default1
