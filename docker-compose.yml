@@ -1,0 +1,50 @@
+version: '2' 
+services:
+  config-service:
+    container_name: config-service
+    hostname: config-service
+    image: parkito/config-service
+    networks:
+      - default
+    ports:
+      - "9090:9090"
+
+  eureka-service:
+    container_name: eureka-service
+    hostname: eureka-service
+    image: parkito/eureka-service
+    networks:
+      - default
+    ports:
+      - "9091:9091"
+
+  post-service:
+    container_name: post-service
+    hostname: post-service
+    image: parkito/post-service
+    networks:
+      - default
+    ports:
+      - "2142:2142"
+
+  document-service:
+    container_name: document-service
+    hostname: document-service
+    image: parkito/document-service
+    networks:
+      - default
+    ports:
+      - "2143:2143"
+
+  user-service:
+    container_name: user-service
+    hostname: user-service
+    image: parkito/user-service
+    networks:
+      - default
+    ports:
+      - "2144:2144"
+
+networks:
+  default:
+    driver: bridge
