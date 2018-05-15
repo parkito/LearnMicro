@@ -4,9 +4,12 @@ import com.google.common.base.Predicates;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.config.client.RetryProperties;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.interceptor.RetryInterceptorBuilder;
+import org.springframework.retry.interceptor.RetryOperationsInterceptor;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -37,6 +40,17 @@ public class DocumentApplication {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
+                .build();
+    }
+
+    @Bean
+    public RetryOperationsInterceptor configServerRetryInterceptor(RetryProperties properties) {
+        return RetryInterceptorBuilder
+                .stateless()
+                .backOffOptions(properties.getInitialInterval(),
+                        properties.getMultiplier(),
+                        properties.getMaxInterval())
+                .maxAttempts(properties.getMaxAttempts())
                 .build();
     }
 }

@@ -19,6 +19,8 @@
         <springfox.swagger2.verson>2.6.1</springfox.swagger2.verson>
         <springfox.swagger.ui.version>2.7.0</springfox.swagger.ui.version>
         <liquibase.maven.plugin.version>3.4.1</liquibase.maven.plugin.version>
+        <spring-cloud.version>Finchley.M9</spring-cloud.version>
+        <spring.retry.version>1.2.2.RELEASE</spring.retry.version>
     </properties>
 
     <parent>
@@ -84,6 +86,12 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>${spring.retry.version}</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
