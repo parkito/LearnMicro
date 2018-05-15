@@ -3,7 +3,7 @@ services:
   config-service:
     container_name: config-service
     hostname: config-service
-    image: config-service
+    image: parkito/config-service
     networks:
       - default
     ports:
@@ -11,7 +11,8 @@ services:
 
   eureka-service:
     container_name: eureka-service
-    image: eureka-service
+    hostname: eureka-service
+    image: parkito/eureka-service
     networks:
       - default
     ports:
@@ -20,7 +21,7 @@ services:
   post-service:
     container_name: post-service
     hostname: post-service
-    image: post-service
+    image: parkito/post-service
     networks:
       - default
     ports:
@@ -29,7 +30,7 @@ services:
   document-service:
     container_name: document-service
     hostname: document-service
-    image: document-service
+    image: parkito/document-service
     networks:
       - default
     ports:
@@ -38,7 +39,7 @@ services:
   user-service:
     container_name: user-service
     hostname: user-service
-    image: user-service
+    image: parkito/user-service
     networks:
       - default
     ports:
