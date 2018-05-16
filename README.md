@@ -2,7 +2,7 @@
 
 Lecture and practice exercises give deep review of current state of enterprise distributed computing a.k.a microservices
 
-##CONFIG_SERVER
+## CONFIG_SERVER
 
 **Stack** 
 *Java 8, Spring Boot 2.0, Spring cloud config server*
@@ -15,7 +15,7 @@ Configs are stored in https://github.com/parkito/LearnMicro repository.
 **Communications** - Rest
 
 
-##SERVICE_DISCOVERY
+## SERVICE_DISCOVERY
 
 **Stack** 
 *Java 8, Spring Boot 2.0, Spring cloud Netflix eureka*
@@ -28,7 +28,7 @@ Configs are stored in https://github.com/parkito/LearnMicro repository.
 **Communications** - Rest
 
 
-##USER_SERVICE
+## USER_SERVICE
 
 **Stack** 
 *Kotlin 1.2, Spring Boot 2.0, Spring data, H2 in memory data base, Netflix eureka client, Spring cloud config client
@@ -47,7 +47,7 @@ Lombok, Liquibase, Swagger, Spring retry*
 
 **Communications** - Rest
 
-##DOCUMENT_SERVICE
+## DOCUMENT_SERVICE
 
 **Stack** 
 *Java 8, Spring Boot 2.0, Spring data, H2 in memory data base, Netflix eureka client, Spring cloud config client
@@ -66,7 +66,7 @@ Lombok, Liquibase, Swagger, Spring retry*
 
 **Communications** - Rest
 
-##POST_SERVICE
+## POST_SERVICE
 
 **Stack** 
 *Java 8, Spring Boot 2.0, Spring data, H2 in memory data base, Netflix eureka client, Spring cloud config client
@@ -85,12 +85,12 @@ Lombok, Liquibase, Swagger, Spring retry*
 
 **Communications** - Rest
 
-##Docker compose
+## Docker compose
 
 All application pushed on Docker hub. Docker-compose script pulls images and runs them. After script executing system is ready to be used. 
 
 
-##Contributing 
+## Contributing 
 
 Your questions and suggestions will be welcomed by author via artem.karnov@t-systems.ru 
 
