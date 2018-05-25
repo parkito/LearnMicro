@@ -1,6 +1,6 @@
 # Repository for microservices lecture in T-Systems java school
 
-Lecture and practice exercises give deep review of current state of enterprise distributed computing a.k.a microservices
+Lecture and practice exercises give overview of current state of enterprise distributed computing a.k.a microservices
 
 ## CONFIG_SERVER
 
