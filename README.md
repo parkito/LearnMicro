@@ -6,7 +6,7 @@ Lecture and practice exercises give overview of current state of enterprise dist
 
 <h3 align="center">
   <br>
-   <img src="https://s8.hostingkartinok.com/uploads/images/2018/06/deb55bd609a3208d9a69fc0fc4ad9447.jpg" title="system architecture" />
+   <img src="https://s8.hostingkartinok.com/uploads/images/2018/06/6c61308e67ea0d19bcc25e2cc130b477.jpg" title="system architecture" />
   <br>
 </h3>
 
