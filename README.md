@@ -2,6 +2,12 @@
 
 Lecture and practice exercises give overview of current state of enterprise distributed computing a.k.a microservices
 
+##System architecture
+
+<br>
+   <img src=https://s8.hostingkartinok.com/uploads/images/2018/06/deb55bd609a3208d9a69fc0fc4ad9447.jpg" alt="Logo ArrayMixer" title="KaCopy logo" />
+  <br>
+
 ## CONFIG_SERVER
 
 **Stack** 
