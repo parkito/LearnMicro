@@ -2,12 +2,13 @@
 
 Lecture and practice exercises give overview of current state of enterprise distributed computing a.k.a microservices
 
-##System architecture
+## System architecture
+
 <h3 align="center">
-<br>
-   <img src=https://s8.hostingkartinok.com/uploads/images/2018/06/deb55bd609a3208d9a69fc0fc4ad9447.jpg" title="System architecture" />
   <br>
-  </h3>
+   <img src="https://s8.hostingkartinok.com/uploads/images/2018/06/deb55bd609a3208d9a69fc0fc4ad9447.jpg" title="system architecture" />
+  <br>
+</h3>
 
 ## CONFIG_SERVER
 
