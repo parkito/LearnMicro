@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.retry.interceptor.RetryInterceptorBuilder
 import org.springframework.retry.interceptor.RetryOperationsInterceptor
 import org.springframework.web.client.RestTemplate
+import springfox.documentation.PathProvider
 import springfox.documentation.builders.PathSelectors
+import springfox.documentation.builders.PathSelectors.regex
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
