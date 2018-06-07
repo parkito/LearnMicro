@@ -1,6 +1,6 @@
-package com.parkito.learnmicro.monolith.repository;
+package com.parkito.learnmicro.post.repository;
 
-import com.parkito.learnmicro.monolith.entity.Parcel;
+import com.parkito.learnmicro.post.entity.Parcel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

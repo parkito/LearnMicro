@@ -30,7 +30,6 @@ class RestUserClient(
                 .build().toUri();
 
         try {
-            //todo null safety kotlin style
             return restTemplate.exchange(
                     targetUrl,
                     HttpMethod.GET,

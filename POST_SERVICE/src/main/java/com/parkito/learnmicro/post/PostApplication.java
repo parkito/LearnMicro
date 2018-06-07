@@ -1,4 +1,4 @@
-package com.parkito.learnmicro.monolith;
+package com.parkito.learnmicro.post;
 
 import com.google.common.base.Predicates;
 import lombok.extern.log4j.Log4j2;
@@ -43,7 +43,7 @@ public class PostApplication {
                 .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
                 .build();
     }
-
+dd
     @Bean
     public RetryOperationsInterceptor configServerRetryInterceptor(RetryProperties properties) {
         return RetryInterceptorBuilder

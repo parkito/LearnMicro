@@ -1,4 +1,4 @@
-package com.parkito.learnmicro.monolith.entity;
+package com.parkito.learnmicro.post.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

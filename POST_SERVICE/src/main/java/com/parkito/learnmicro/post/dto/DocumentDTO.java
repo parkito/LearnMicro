@@ -1,4 +1,4 @@
-package com.parkito.learnmicro.monolith.dto;
+package com.parkito.learnmicro.post.dto;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,11 +1,11 @@
-package com.parkito.learnmicro.monolith.service;
+package com.parkito.learnmicro.post.service;
 
-import com.parkito.learnmicro.monolith.controller.PostRestClient;
-import com.parkito.learnmicro.monolith.dto.DocumentDTO;
-import com.parkito.learnmicro.monolith.dto.ParcelDTO;
-import com.parkito.learnmicro.monolith.dto.UserDTO;
-import com.parkito.learnmicro.monolith.entity.Parcel;
-import com.parkito.learnmicro.monolith.repository.ParcelRepository;
+import com.parkito.learnmicro.post.controller.PostRestClient;
+import com.parkito.learnmicro.post.dto.DocumentDTO;
+import com.parkito.learnmicro.post.dto.ParcelDTO;
+import com.parkito.learnmicro.post.dto.UserDTO;
+import com.parkito.learnmicro.post.entity.Parcel;
+import com.parkito.learnmicro.post.repository.ParcelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

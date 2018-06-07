@@ -1,8 +1,8 @@
-package com.parkito.learnmicro.monolith.controller;
+package com.parkito.learnmicro.post.controller;
 
-import com.parkito.learnmicro.monolith.dto.ParcelDTO;
-import com.parkito.learnmicro.monolith.entity.Parcel;
-import com.parkito.learnmicro.monolith.service.ParcelService;
+import com.parkito.learnmicro.post.dto.ParcelDTO;
+import com.parkito.learnmicro.post.entity.Parcel;
+import com.parkito.learnmicro.post.service.ParcelService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

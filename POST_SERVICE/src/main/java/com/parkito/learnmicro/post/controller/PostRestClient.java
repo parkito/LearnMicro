@@ -1,7 +1,7 @@
-package com.parkito.learnmicro.monolith.controller;
+package com.parkito.learnmicro.post.controller;
 
-import com.parkito.learnmicro.monolith.dto.DocumentDTO;
-import com.parkito.learnmicro.monolith.dto.UserDTO;
+import com.parkito.learnmicro.post.dto.DocumentDTO;
+import com.parkito.learnmicro.post.dto.UserDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
