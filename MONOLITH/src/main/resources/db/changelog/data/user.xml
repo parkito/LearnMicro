@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="akarnov" id="user-data-init">
+
+        <insert tableName="USER">
+            <column name="USER_ID">1</column>
+            <column name="EMAIL">email1</column>
+            <column name="FIRST_NAME">firstName1</column>
+            <column name="LAST_NAME">secondName1</column>
+        </insert>
+
+        <insert tableName="USER">
+            <column name="USER_ID">2</column>
+            <column name="EMAIL">email2</column>
+            <column name="FIRST_NAME">firstName2</column>
+            <column name="LAST_NAME">secondName2</column>
+        </insert>
+
+        <insert tableName="USER">
+            <column name="USER_ID">3</column>
+            <column name="EMAIL">email3</column>
+            <column name="FIRST_NAME">firstName3</column>
+            <column name="LAST_NAME">secondName3</column>
+        </insert>
+
+        <insert tableName="USER">
+            <column name="USER_ID">4</column>
+            <column name="EMAIL">email4</column>
+            <column name="FIRST_NAME">firstName4</column>
+            <column name="LAST_NAME">secondName4</column>
+        </insert>
+
+        <insert tableName="USER">
+            <column name="USER_ID">5</column>
+            <column name="EMAIL">email5</column>
+            <column name="FIRST_NAME">firstName5</column>
+            <column name="LAST_NAME">secondName5</column>
+        </insert>
+
+        <insert tableName="USER">
+            <column name="USER_ID">6</column>
+            <column name="EMAIL">email6</column>
+            <column name="FIRST_NAME">firstName6</column>
+            <column name="LAST_NAME">secondName6</column>
+        </insert>
+
+        <insert tableName="USER">
+            <column name="USER_ID">7</column>
+            <column name="EMAIL">email7</column>
+            <column name="FIRST_NAME">firstName7</column>
+            <column name="LAST_NAME">secondName7</column>
+        </insert>
+
+        <insert tableName="USER">
+            <column name="USER_ID">8</column>
+            <column name="EMAIL">email8</column>
+            <column name="FIRST_NAME">firstName8</column>
+            <column name="LAST_NAME">secondName8</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
