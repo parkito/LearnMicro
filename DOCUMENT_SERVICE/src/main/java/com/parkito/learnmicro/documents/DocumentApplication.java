@@ -24,10 +24,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 public class DocumentApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(DocumentApplication.class, args);
-    }
-
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -52,5 +48,9 @@ public class DocumentApplication {
                         properties.getMaxInterval())
                 .maxAttempts(properties.getMaxAttempts())
                 .build();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(DocumentApplication.class, args);
     }
 }
