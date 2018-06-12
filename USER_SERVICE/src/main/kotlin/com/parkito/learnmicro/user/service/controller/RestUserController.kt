@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
  * artem.karnov@t-systems.com
  */
 @RestController
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v1")
 class RestUserController {
     val logger = LoggerFactory.getLogger(javaClass)
 

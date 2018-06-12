@@ -3,7 +3,7 @@ services:
   config-service:
     container_name: config-service
     hostname: config-service
-    image: parkito/config-service
+    image: config-service
     networks:
       - default
     ports:
@@ -12,7 +12,7 @@ services:
   user-service:
     container_name: user-service
     hostname: user-service
-    image: parkito/user-service
+    image: user-service
     networks:
       - default
     ports:
